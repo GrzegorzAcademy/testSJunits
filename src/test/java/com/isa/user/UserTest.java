@@ -1,8 +1,10 @@
 package com.isa.user;
 
 
-import org.junit.Test;
 
+
+
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,7 +22,7 @@ public class UserTest {
 
     @Test
     public void testUserDefaultConstructorWhenLoginIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> new User("null"));
+        assertThrows(IllegalArgumentException.class, () -> new User(null));
     }
 
     @Test
@@ -38,12 +40,33 @@ public class UserTest {
         User user = new User("Janko");
         assertThrows(IllegalArgumentException.class, () -> user.setPassword(null));
 
-    }@Test
+    }
+
+    @Test
     public void testCreateNewUserWhenPasswordIsEmpty() {
         User user = new User("Janko");
         assertThrows(IllegalArgumentException.class, () -> user.setPassword(""));
 
     }
 
+    @Test
+    public void testCreateNewUserWhenPasswordIsNew() {
+        User user = new User("Janko");
+        user.setPassword("123");
+       assertEquals("Janko",user.getLogin());
+       assertEquals("123", user.getPassword());
 
+    }
+
+    @Test
+    public void testValidateDate() {
+        User user = new User("Test1");
+        user.setPassword("asd");
+        assertEquals("Test1", user.getLogin());
+        assertEquals("asd", user.getPassword());
+        assertEquals("User{" +
+                "login='" + user.getLogin() + '\'' +
+                ", password='" + user.getPassword() + '\'' +
+                '}', user.toString());
+    }
 }
